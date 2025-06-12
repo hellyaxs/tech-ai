@@ -52,11 +52,11 @@ const Navbar = () => {
             e.preventDefault();
             scrollToTop();
           }}
-          aria-label="Pulse Robot"
+          aria-label="FITAI"
         >
           <img 
             src="/logo.svg" 
-            alt="Pulse Robot Logo" 
+            alt="FITAI Logo" 
             className="h-7 sm:h-8" 
           />
         </a>
@@ -71,17 +71,17 @@ const Navbar = () => {
               scrollToTop();
             }}
           >
-            Home
+            Início
           </a>
-          <a href="#features" className="nav-link">About</a>
-          <a href="#details" className="nav-link">Contact</a>
+          <a href="#features" className="nav-link">Funcionalidades</a>
+          <a href="#details" className="nav-link">Contato</a>
         </nav>
 
         {/* Mobile menu button - increased touch target */}
         <button 
           className="md:hidden text-gray-700 p-3 focus:outline-none" 
           onClick={toggleMenu}
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -103,7 +103,7 @@ const Navbar = () => {
               document.body.style.overflow = '';
             }}
           >
-            Home
+            Início
           </a>
           <a 
             href="#features" 
@@ -113,7 +113,7 @@ const Navbar = () => {
               document.body.style.overflow = '';
             }}
           >
-            About
+            Funcionalidades
           </a>
           <a 
             href="#details" 
@@ -123,7 +123,7 @@ const Navbar = () => {
               document.body.style.overflow = '';
             }}
           >
-            Contact
+            Contato
           </a>
         </nav>
       </div>
