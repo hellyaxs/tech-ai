@@ -1,7 +1,7 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { generateOllamaResponse, streamOllamaResponse } from "@/server/ollamaService";
 
 interface Message {
   id: string;
@@ -47,17 +47,36 @@ const Chatbot = () => {
     setInputMessage("");
     setIsTyping(true);
 
-    // Simular resposta do bot (aqui você integrará com n8n no futuro)
-    setTimeout(() => {
-      const botResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        text: getBotResponse(inputMessage),
-        isUser: false,
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, botResponse]);
+    // Adiciona uma mensagem vazia do bot para ir preenchendo
+    const botMessageId = (Date.now() + 1).toString();
+    setMessages(prev => [
+      ...prev,
+      { id: botMessageId, text: "", isUser: false, timestamp: new Date() }
+    ]);
+
+    try {
+      let botText = "";
+      for await (const chunk of streamOllamaResponse(inputMessage, 'mistral')) {
+        botText += chunk;
+        setMessages(prev =>
+          prev.map(msg =>
+            msg.id === botMessageId ? { ...msg, text: botText } : msg
+          )
+        );
+      }
+    } catch (error) {
+      setMessages(prev => [
+        ...prev,
+        {
+          id: (Date.now() + 2).toString(),
+          text: "Erro ao conectar ao servidor de IA.",
+          isUser: false,
+          timestamp: new Date()
+        }
+      ]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   const getBotResponse = (userInput: string): string => {

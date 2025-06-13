@@ -1,69 +1,107 @@
-# Welcome to your Lovable project
+# Chatbot com IA Integrado
 
-## Project info
+Este é um projeto de chatbot que utiliza inteligência artificial para responder às interações dos usuários. O sistema integra um frontend React com um backend de IA usando Ollama e n8n para processamento de requisições.
 
-**URL**: https://lovable.dev/projects/35d72d2e-6e25-40e5-9b0c-c0d1a7c1b727
+## Tecnologias Utilizadas
 
-## How can I edit this code?
+- Frontend:
+  - Vite
+  - TypeScript
+  - React
+  - shadcn-ui
+  - Tailwind CSS
+- Backend:
+  - Ollama (Modelo Mistral)
+  - n8n (Automação de fluxos)
+  - Docker
 
-There are several ways of editing your application.
+## Como Executar com Docker
 
-**Use Lovable**
+### Pré-requisitos
+- Docker e Docker Compose instalados
+- NVIDIA GPU (recomendado)
+- NVIDIA Container Toolkit instalado (para suporte a GPU)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/35d72d2e-6e25-40e5-9b0c-c0d1a7c1b727) and start prompting.
+### Configuração do Ambiente
 
-Changes made via Lovable will be committed automatically to this repo.
+1. Clone o repositório:
+```sh
+git clone <YOUR_GIT_URL>
+cd <YOUR_PROJECT_NAME>
+```
 
-**Use your preferred IDE**
+2. Configure as variáveis de ambiente:
+```sh
+# Crie um arquivo .env na raiz do projeto
+cp .env.example .env
+```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+3. Edite o arquivo `.env` com suas configurações:
+```env
+# Configurações do Ollama
+OLLAMA_HOST=0.0.0.0
+OLLAMA_MODELS=mistral
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+# Configurações do n8n
+N8N_HOST=localhost
+N8N_PORT=5678
+N8N_PROTOCOL=http
+N8N_USER_EMAIL=seu@email.com
+N8N_USER_PASSWORD=sua_senha
 
-Follow these steps:
+# Configurações do Frontend
+VITE_API_URL=http://localhost:11434
+```
+
+4. Inicie os containers:
+```sh
+docker-compose up -d
+```
+
+5. Aguarde a inicialização completa e baixe o modelo de IA:
+```sh
+docker exec -it ia_server ollama pull mistral
+```
+
+### Acessando a Aplicação
+
+- Frontend: http://localhost:3000
+- n8n Interface: http://localhost:5678
+- API Ollama: http://localhost:11434
+
+## Arquitetura do Sistema
+
+O sistema é composto por três componentes principais:
+
+1. **Frontend React**: Interface do usuário onde os usuários interagem com o chatbot
+2. **Ollama**: Serviço de IA que processa as requisições usando o modelo Mistral
+3. **n8n**: Plataforma de automação que gerencia os fluxos de conversação e integrações
+
+### Fluxo de Funcionamento
+
+1. O usuário envia uma mensagem através do frontend
+2. A requisição é processada pelo n8n
+3. O n8n envia a requisição para o Ollama
+4. O modelo Mistral processa e gera uma resposta
+5. A resposta é retornada ao usuário através do frontend
+
+## Desenvolvimento Local
+
+Para desenvolvimento sem Docker:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
+# Instalar dependências
 npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Iniciar servidor de desenvolvimento
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Deploy
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Para fazer deploy do projeto:
 
-**Use GitHub Codespaces**
+1. Acesse [Lovable](https://lovable.dev/projects/35d72d2e-6e25-40e5-9b0c-c0d1a7c1b727)
+2. Clique em Share -> Publish
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/35d72d2e-6e25-40e5-9b0c-c0d1a7c1b727) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+Para deploy em domínio próprio, consulte nossa [documentação sobre domínios personalizados](https://docs.lovable.dev/tips-tricks/custom-domain/).
