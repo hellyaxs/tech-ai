@@ -2,6 +2,8 @@
 
 Este é um projeto de chatbot que utiliza inteligência artificial para responder às interações dos usuários. O sistema integra um frontend React com um backend de IA usando Ollama e n8n para processamento de requisições.
 
+
+## [click aqui para demo](https://684b83776d462ebc8353b842--tech-ai-elias-vitor.netlify.app/)
 ## Tecnologias Utilizadas
 
 - Frontend:
