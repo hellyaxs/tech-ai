@@ -6,7 +6,7 @@ services:
     environment:
       - VITE_OLLAMA_URL=http://localhost:11434
     ports:
-      - 80:80
+      - 3000:80
   ia_server:
     image: ollama/ollama:latest
     ports:
