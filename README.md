@@ -6,6 +6,8 @@ Este é um projeto de chatbot que utiliza inteligência artificial para responde
 ## [click aqui para demo](https://684b83776d462ebc8353b842--tech-ai-elias-vitor.netlify.app/)
 ## Tecnologias Utilizadas
 
+## [vídeo](https://drive.google.com/file/d/1ONSKccuFEY5QGR_3maQQAk4IfiiH21cX/view?usp=drivesdk)
+
 - Frontend:
   - Vite
   - TypeScript
